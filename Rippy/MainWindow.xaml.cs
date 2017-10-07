@@ -103,7 +103,27 @@ namespace Rippy
         /// <param name="directory"></param>
         private void CopyMiscFiles(string directory)
         {
-            CopyFile(Directory.EnumerateFiles(_albumData.FlacFolder).Where(x => miscToCopy.Contains(new FileInfo(x).Extension.ToLower())), directory);
+            try
+            {
+                CopyFile(Directory.EnumerateFiles(_albumData.FlacFolder).Where(x => miscToCopy.Contains(new FileInfo(x).Extension.ToLower())), directory);
+
+                foreach (var flacDirectory in Directory.EnumerateDirectories(_albumData.FlacFolder))
+                {
+                    var fileUri = new Uri(_albumData.FlacFolder);
+                    var folderUri = new Uri(flacDirectory);
+                    var folderName = folderUri.AbsolutePath.Replace(fileUri.AbsolutePath, "").Replace("/", @"\").Replace("%20", " ").Replace(":", "-");
+                    if (!Directory.Exists(directory + folderName))
+                    {
+                        Directory.CreateDirectory(directory + folderName);
+                    }
+
+                    CopyFile(Directory.EnumerateFiles(flacDirectory, "*", SearchOption.AllDirectories).Where(x => miscToCopy.Contains(new FileInfo(x).Extension.ToLower())), directory + folderName + @"\");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occured while copying misc files: " + ex.Message);
+            }
         }
 
         /// <summary>
@@ -230,7 +250,7 @@ namespace Rippy
             name = name.Replace(@"/", @"-").Replace(":", "-");
             CreateFolder(name);
             var directory = Path.Combine(Rippy.Properties.Settings.Default.OutputDirectory, name);
-            if (outputFileExtension == "flac") // Copy misc if flac only
+            if (outputFileExtension == "flac")
                 CopyMiscFiles(directory);
             if (Properties.Settings.Default.CopyImages)
                 CopyImages(directory);
@@ -263,8 +283,7 @@ namespace Rippy
             if (MP3V2)
                 if (!(ProcessDirectory(_albumData.MP3V2, "-V 2 -q 0 -noreplaygain -convert_to\"mp3 (Lame)\"", "mp3", totalFiles))) return;
             if (FLAC)
-                //if (!(ProcessDirectory(_albumData.FLAC, "-convert_to=\"FLAC\" -compression-level-8", "flac", totalFiles))) return;
-                if (!(ProcessDirectory(_albumData.FLAC, null, "flac", totalFiles))) return; // just move the flacs 
+                if (!(ProcessDirectory(_albumData.FLAC, "-convert_to=\"FLAC\" -compression-level-8", "flac", totalFiles))) return;
             if (FLAC16)
                 if (!(ProcessDirectory(_albumData.FLAC16, "-dspeffect1=\"Resample=-frequency={qt}44100{qt}\" -dspeffect2=\"Bit Depth=-depth={qt}16{qt}\" -convert_to=\"FLAC\" -compression-level-8", "flac", totalFiles))) return;
         }
