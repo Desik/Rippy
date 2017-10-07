@@ -20,5 +20,8 @@
     <Setting Name="CopyImages" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="Sources" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Source1,Source2</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

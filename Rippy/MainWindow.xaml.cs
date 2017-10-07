@@ -39,13 +39,19 @@ namespace Rippy
         private string[] miscToCopy =
         {
             ".log",
+            ".cue",
+            ".m3u",
+            ".pdf",
+            ".epub"
         };
 
         private string[] imageExtensionsToCopy =
         {
             ".png",
             ".jpg",
-            ".jpeg"
+            ".jpeg",
+            ".pdf",
+            ".epub"
         };
 
         //Public Class Properties
@@ -224,7 +230,8 @@ namespace Rippy
             name = name.Replace(@"/", @"-").Replace(":", "-");
             CreateFolder(name);
             var directory = Path.Combine(Rippy.Properties.Settings.Default.OutputDirectory, name);
-            CopyMiscFiles(directory);
+            if (outputFileExtension == "flac") // Copy misc if flac only
+                CopyMiscFiles(directory);
             if (Properties.Settings.Default.CopyImages)
                 CopyImages(directory);
             if (!TranscodeFiles(directory, dbargs, outputFileExtension, totalFiles))
@@ -256,9 +263,10 @@ namespace Rippy
             if (MP3V2)
                 if (!(ProcessDirectory(_albumData.MP3V2, "-V 2 -q 0 -noreplaygain -convert_to\"mp3 (Lame)\"", "mp3", totalFiles))) return;
             if (FLAC)
-                if (!(ProcessDirectory(_albumData.FLAC, "-convert_to=\"FLAC\" -compression-level-8", "flac", totalFiles))) return;
+                //if (!(ProcessDirectory(_albumData.FLAC, "-convert_to=\"FLAC\" -compression-level-8", "flac", totalFiles))) return;
+                if (!(ProcessDirectory(_albumData.FLAC, null, "flac", totalFiles))) return; // just move the flacs 
             if (FLAC16)
-                if (!(ProcessDirectory(_albumData.FLAC16, "-dspeffect1=\"Bit Depth=-depth={qt}16{qt}\" -convert_to=\"FLAC\" -compression-level-8", "flac", totalFiles))) return;
+                if (!(ProcessDirectory(_albumData.FLAC16, "-dspeffect1=\"Resample=-frequency={qt}44100{qt}\" -dspeffect2=\"Bit Depth=-depth={qt}16{qt}\" -convert_to=\"FLAC\" -compression-level-8", "flac", totalFiles))) return;
         }
 
         private void _createProgressDialog_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
