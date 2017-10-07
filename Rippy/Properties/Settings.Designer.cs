@@ -8,77 +8,96 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Rippy.Properties {
-    
-    
+namespace Rippy.Properties
+{
+
+
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.0.1.0")]
-    public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
+    public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase
+    {
+
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
-        
-        public static Settings Default {
-            get {
+
+        public static Settings Default
+        {
+            get
+            {
                 return defaultInstance;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files\\dBpoweramp\\coreconverter.exe")]
-        public string DBPowerampLocation {
-            get {
+        public string DBPowerampLocation
+        {
+            get
+            {
                 return ((string)(this["DBPowerampLocation"]));
             }
-            set {
+            set
+            {
                 this["DBPowerampLocation"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files (x86)\\Mp3tag\\Mp3tag.exe")]
-        public string MP3TagLocation {
-            get {
+        public string MP3TagLocation
+        {
+            get
+            {
                 return ((string)(this["MP3TagLocation"]));
             }
-            set {
+            set
+            {
                 this["MP3TagLocation"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(".\\Transcodes\\")]
-        public string OutputDirectory {
-            get {
+        public string OutputDirectory
+        {
+            get
+            {
                 return ((string)(this["OutputDirectory"]));
             }
-            set {
+            set
+            {
                 this["OutputDirectory"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(".\\Torrents\\")]
-        public string TorrentDirectory {
-            get {
+        public string TorrentDirectory
+        {
+            get
+            {
                 return ((string)(this["TorrentDirectory"]));
             }
-            set {
+            set
+            {
                 this["TorrentDirectory"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("https://example1.com/stuff/announce,https://example2.com/stuff2/announce")]
-        public string Trackers {
-            get {
+        public string Trackers
+        {
+            get
+            {
                 return ((string)(this["Trackers"]));
             }
-            set {
+            set
+            {
                 this["Trackers"] = value;
             }
         }
@@ -101,14 +120,17 @@ namespace Rippy.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool CopyImages {
-            get {
+        public bool CopyImages
+        {
+            get
+            {
                 return ((bool)(this["CopyImages"]));
             }
-            set {
+            set
+            {
                 this["CopyImages"] = value;
             }
-        }        
+        }
 
     }
 }
